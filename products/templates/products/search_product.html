@@ -1,0 +1,7 @@
+{% extends 'products/base.html' %}
+{% load staticfiles %}
+{% block content %}
+    {% for product in object_list %}
+        {% include 'products/product_detail.html' %}
+    {% endfor %}
+{% endblock %}

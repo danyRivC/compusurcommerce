@@ -1,0 +1,126 @@
+{% extends 'products/base.html' %}
+{% load staticfiles %}
+{% block content %}
+    <!-- Page Content -->
+    <div class="container">
+
+      <div class="row">
+
+        <!-- Post Content Column -->
+        <div class="col-lg-8">
+
+          <!-- Title -->
+          <h1 class="mt-4">{{product.title}}</h1>
+
+          <!-- Author -->
+          <!-- <p class="lead">
+            by
+            <a href="#">Start Bootstrap</a>
+          </p> -->
+
+          <hr>
+
+          <!-- Date/Time -->
+          <p>Publicado el {{product.created_at}}</p>
+
+          <hr>
+
+          <!-- Preview Image -->
+          <img class="img-fluid rounded" src="{{product.images.first.image.url}}" alt="">
+
+          <hr>
+
+          <!-- Post Content -->
+          <p class="lead">{{product.description}}</p>
+
+          <hr>
+
+          <!-- Comments Form -->
+          {% if request.user.is_authenticated %}
+          <h4 id="comments">Comentarios</h4>
+          <div class="card my-4">
+            <h5 class="card-header">Cuéntanos tu experiencia:</h5>
+            <div class="card-body">
+              <form method="post" action="{% url "comments:createcomment" %}">
+                {% csrf_token %}
+                <div class="form-group">
+                  <textarea name="{{comment_form.content.name}}" class="form-control" rows="3"></textarea>
+                  <input type="hidden" name="{{comment_form.product.name}}" value="{{product.id}}">
+                </div>
+                <button type="submit" class="btn btn-primary">Enviar</button>
+              </form>
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- Single Comment -->
+          {% for comment in product.comments.all reversed %}
+          <div id="0" class="media mb-4">
+            
+            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+            <div class="media-body">
+              <h5 class="mt-0">{{comment.author.username}}</h5>
+              {{comment.content}}
+              
+              <p id="comentario">{{comment.created_at}}</p>
+              
+              <hr>
+            </div>
+            
+          </div>
+          {% endfor %}
+          
+
+        </div>
+
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-4">
+
+          <!-- Search Widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Buscas algo en especial?</h5>
+            <div class="card-body">
+              <div class="input-group">
+                <input name="query" type="text" class="form-control" placeholder="Search for...">
+                
+                <span class="input-group-btn">
+                  
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Categories Widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Categorías</h5>
+            <div class="card-body">
+                <div class="col-lg-6">
+                  <ul class="list-unstyled mb-0">
+                    {% for category in product.categories.all %}
+                    <li>
+                      <a href="#">{{category.name}}</a>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+
+            </div>
+          </div>
+
+          <div class="card my-4">
+            <h5 class="card-header">Precio</h5>
+            <div class="card-body">
+              Solo! ${{product.price}}
+              <a href="{% url "buy" slug=product.slug %}"><button type="button" class="btn-success btn ">Comprar</button></a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+  
+{% endblock %}
