@@ -56,20 +56,20 @@
           <!-- Single Comment -->
           {% for comment in product.comments.all reversed %}
           <div id="0" class="media mb-4">
-            
+
             <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
             <div class="media-body">
               <h5 class="mt-0">{{comment.author.username}}</h5>
               {{comment.content}}
-              
+
               <p id="comentario">{{comment.created_at}}</p>
-              
+
               <hr>
             </div>
-            
+
           </div>
           {% endfor %}
-          
+
 
         </div>
 
@@ -81,11 +81,12 @@
             <h5 class="card-header">Buscas algo en especial?</h5>
             <div class="card-body">
               <div class="input-group">
-                <input name="query" type="text" class="form-control" placeholder="Search for...">
-                
-                <span class="input-group-btn">
-                  
-                </span>
+                <form class="" action="{% url "search_product" %}" method="GET">
+                  <input name="query" type="text" class="form-control" placeholder="Buscar">
+                  <button type="submit">Buscar</button>
+                  <span class="input-group-btn">
+                  </span>
+                </form>
               </div>
             </div>
           </div>
@@ -98,7 +99,7 @@
                   <ul class="list-unstyled mb-0">
                     {% for category in product.categories.all %}
                     <li>
-                      <a href="#">{{category.name}}</a>
+                      <a href="{% url "product_category" query=category.name%}">{{category.name}}</a>
                     </li>
                     {% endfor %}
                   </ul>
@@ -110,7 +111,7 @@
           <div class="card my-4">
             <h5 class="card-header">Precio</h5>
             <div class="card-body">
-              Solo! ${{product.price}}
+              <p>Solo! ${{product.price}}</p>
               <a href="{% url "buy" slug=product.slug %}"><button type="button" class="btn-success btn ">Comprar</button></a>
             </div>
           </div>
@@ -122,5 +123,5 @@
 
     </div>
     <!-- /.container -->
-  
+
 {% endblock %}

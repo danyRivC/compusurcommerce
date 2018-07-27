@@ -80,11 +80,17 @@ WSGI_APPLICATION = 'compucommerce.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'compudb2',
+            'USER': 'postgres', #if the application is running on Linux, the user must be changed by the user created when the database file was created
+	        'PASSWORD': '0860',
+            'HOST': 'localhost',
+            'PORT': '5432',
+
     }
 }
-
+#'ENGINE': 'django.db.backends.sqlite3',
+#'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -128,3 +134,4 @@ STATIC_URL = '/static/'
 
 STRIPE_API_KEY = 'sk_test_ejRGDsDDJ3urcOCrI6nwAEOM'
 STRIPE_PUBLIC_API_KEY = 'pk_test_zTdZGMyrqMbvI4VxHXPqb1Dl'
+

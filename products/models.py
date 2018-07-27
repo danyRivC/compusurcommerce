@@ -11,7 +11,7 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse("detail", kwargs={'slug':self.slug})
-        
+
     def __str__(self):
         return self.title
 
@@ -31,5 +31,3 @@ class ProductCategory(models.Model):
     slug = models.SlugField()
     def __str__(self):
         return self.name
-    
-

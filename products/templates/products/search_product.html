@@ -1,7 +1,17 @@
-{% extends 'products/base.html' %}
-{% load staticfiles %}
-{% block content %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Compusur</title>
+  </head>
+  <body>
+    <h1>Esto es lo que coincide </h1>
     {% for product in object_list %}
-        {% include 'products/product_detail.html' %}
-    {% endfor %}
-{% endblock %}
+      {{product.title}}
+    {% endfor%}
+
+
+
+
+  </body>
+</html>
